@@ -343,5 +343,124 @@ class fashionShop{
         
     }
     // =================================== Search Customer Mthod ============================================
+    public static void serachCustomer(){
+        Scanner input = new Scanner(System.in);
+                
+        System.out.println("\t\t\t\t\t  _____                          _           _____             _                                ");
+        System.out.println("\t\t\t\t\t/ ____|                        | |         / ____|           | |                               ");
+        System.out.println("\t\t\t\t\t| (___    ___   __ _  _ __  ___ | |__      | |     _   _  ___ | |_  ___   _ __ ___    ___  _ __ ");
+        System.out.println("\t\t\t\t\t\\___\\  / _ \\ / _` || '__|/ __|| '_\\     | |    | | | |/ __|| __|/ _ \\ | '_ ` _ \\  / _ \\| '__|");
+        System.out.println("\t\t\t\t\t____) ||  __/| (_| || |  | (__ | | | |    | |____| |_| |\\__ \\| |_| (_) || | | | | ||  __/| |   ");
+        System.out.println("\t\t\t\t\t|_____/ \\___| \\__,_||_|   \\___||_| |_|     \\_____|\\__,_||___/ \\__|\\___/ |_| |_| |_| \\___||_|   ");
+        System.out.println();
+        System.out.println("\t\t\t\t\t___________________________________________________________________________________________________");
+        System.out.println();
+        System.out.println();
+
+        System.out.print("\t\t\t\t\t\t\t Enter Customer Phone Number: ");
+        String custEnterPhonenum = input.nextLine();
+        System.out.println();
+               
+        boolean numbervalid = false;
+
+        for(int i=0; i<customerPhoneNumber.length; i++){
+            if(custEnterPhonenum.equals(customerPhoneNumber[i])){
+                numbervalid=true;
+                
+                if(tShirtSizeAr[i].equals("M")){
+                    tempMedium+=quantityAr[i];
+                }else if (tShirtSizeAr[i].equals("XS")){
+                    tempXtraSmall+=quantityAr[i];
+                }else if(tShirtSizeAr[i].equals("XXL")){
+                    tempXtraXl+=quantityAr[i];
+                }else if(tShirtSizeAr[i].equals("XL")){
+                    tempXtraLarge+=quantityAr[i];
+                }else if(tShirtSizeAr[i].equals("S")){
+                    tempSmall+=quantityAr[i];
+                }else if(tShirtSizeAr[i].equals("L")){
+                    tempLarge+=quantityAr[i];
+                } 
+                                                           
+            } //else {
+                //continue;
+            //}
+            
+        }
+        if(numbervalid=false){
+                System.out.println("\t\t\t\t\t\t\t\t\t Invalid Phone Number... ");
+                System.out.println();
+
+                char anotherCusReprt = 'Y';
+                System.out.print("\t\t\t\t\t\t\t Do you want to Search another Customer Report? (y/n) : ");
+                anotherCusReprt = input.next().charAt(0);
+
+                if(anotherCusReprt=='Y' || anotherCusReprt=='y'){
+                    clearConsole();
+                    serachCustomer();
+                }else{
+                    clearConsole();
+                    main(null);
+                }
+        }        
+        customerSearchOrderPrint();
+    }       
+    // ==========================    Search Order Print ===========================================
+    public static void customerSearchOrderPrint(){
+        Scanner input = new Scanner(System.in);
+        System.out.println();
+
+        mediumAmount=tempMedium*900;
+        xtraLargeAmount=tempXtraLarge*1100;
+        xtraxXlAmount=tempXtraXl*1200;
+        xtraSmallAmount=tempXtraSmall*600;
+        smallAmount=tempSmall*800;
+        largeAmount=tempLarge*1000;
+        searchTotalAmount=mediumAmount+xtraLargeAmount+xtraxXlAmount+xtraSmallAmount+smallAmount+largeAmount;
+               
+        System.out.printf("\t\t\t\t\t%10s+%10s+%15s\n","+----------","----------","--------------+");
+        System.out.printf("\t\t\t\t\t|%6s %6s %6s\n","  Size    |"," QTY     |","   Amount    |");
+        System.out.printf("\t\t\t\t\t%10s+%10s+%15s\n","+----------","----------","--------------+");
+        System.out.printf("\t\t\t\t\t| %4s     |%4s      |%13s |\n","","","");
+        System.out.printf("\t\t\t\t\t| %4s     |%4d      |%10.2f    |\n","M",tempMedium,mediumAmount);
+        System.out.printf("\t\t\t\t\t| %4s     |%4s      |%13s |\n","","","");
+        System.out.printf("\t\t\t\t\t| %4s     |%4d      |%10.2f    |\n","XL",tempXtraLarge,xtraLargeAmount);
+        System.out.printf("\t\t\t\t\t| %4s     |%4s      |%13s |\n","","","");
+        System.out.printf("\t\t\t\t\t| %4s     |%4d      |%10.2f    |\n","XXL",tempXtraXl,xtraxXlAmount);
+        System.out.printf("\t\t\t\t\t| %4s     |%4s      |%13s |\n","","","");
+        System.out.printf("\t\t\t\t\t| %4s     |%4d      |%10.2f    |\n","XS",tempXtraSmall,xtraSmallAmount);
+        System.out.printf("\t\t\t\t\t| %4s     |%4s      |%13s |\n","","","");
+        System.out.printf("\t\t\t\t\t| %4s     |%4d      |%10.2f    |\n","S",tempSmall,smallAmount);
+        System.out.printf("\t\t\t\t\t| %4s     |%4s      |%13s |\n","","","");
+        System.out.printf("\t\t\t\t\t| %4s     |%4d      |%10.2f    |\n","L",tempLarge,largeAmount);
+        System.out.printf("\t\t\t\t\t| %4s     |%4s      |%13s |\n","","","");
+        System.out.printf("\t\t\t\t\t%10s+%10s+%15s\n","+----------","----------","--------------+");
+        System.out.printf("\t\t\t\t\t|%6s %10.2f     |\n","  Total Amount     |"       ,searchTotalAmount);
+        System.out.printf("\t\t\t\t\t%10s+%10s+%15s\n","+----------","----------","--------------+");
+
+        System.out.println();
+        System.out.println();
+
+        char anotherCusReprt2 = 'Y';
+        System.out.print("\t\t\t\t\t\t\t Do you want to Search another Customer Report? (y/n) : ");
+        anotherCusReprt2 = input.next().charAt(0);
+
+        if(anotherCusReprt2=='Y' || anotherCusReprt2=='y'){
+            clearConsole();
+            tempCountUpdate();
+            serachCustomer();
+        }else{
+            clearConsole();
+            main(null);
+        }
+       
+    }   
+    public static void tempCountUpdate(){
+        tempMedium=0;
+        tempXtraLarge=0;
+        tempXtraXl=0;
+        tempXtraSmall=0;
+        tempSmall=0;
+        tempLarge=0;
+    }
       
 }
