@@ -1045,17 +1045,19 @@ class fashionShop{
         // String [][] bestCustomer = new String[customerPhoneNumber.length][3];
 
         BestsInCustomer[] viewBestCustomers = new BestsInCustomer[orderDetails.length];
-        for(int i=0; i<viewBestCustomers.length; i++){
-            viewBestCustomers[i]=new BestsInCustomer();
-        }
         boolean [] equalPass = new boolean[orderDetails.length];
-
         int count=0;
 
+        // for(int i=0; i<viewBestCustomers.length; i++){
+            
+        // }
+        
         for(int i=0; i<orderDetails.length; i++){
             if(equalPass[i]){
                 continue;
             }
+
+            viewBestCustomers[count]=new BestsInCustomer();
 
             int tempqty = orderDetails[i].getQuantity();
             double tempAmount = orderDetails[i].getAmount();
@@ -1074,23 +1076,32 @@ class fashionShop{
 
             String customerPhoneNumber = orderDetails[i].getPhoneNumber();
 
-            viewBestCustomers[i].setPhoneNumber(customerPhoneNumber);
-            viewBestCustomers[i].setQuantity(tempqty);
-            viewBestCustomers[i].setAmount(tempAmount);
+            viewBestCustomers[count].setPhoneNumber(customerPhoneNumber);
+            viewBestCustomers[count].setQuantity(tempqty);
+            viewBestCustomers[count].setAmount(tempAmount);
             count++;
         }
                
         // Sorting Part....
         for(int i=count-1; i>0; i--){           
             for(int j=0; j<i; j++){    
-                // if(bestCustomer[j][2]!=null && bestCustomer[j+1][2]!=null){
-                    if(viewBestCustomers[j].getAmount()<viewBestCustomers[j+1].getAmount()){                   
-                        BestsInCustomer swap = viewBestCustomers[j];
-                        viewBestCustomers[j]=viewBestCustomers[j+1];
-                        viewBestCustomers[j+1]=swap;                    
+                if(viewBestCustomers[j] != null && viewBestCustomers[j+1] != null){
+                    if(viewBestCustomers[j].getQuantity()!=0 && viewBestCustomers[j+1].getQuantity()!=0){
+                        if(viewBestCustomers[j].getAmount()<viewBestCustomers[j+1].getAmount()){                   
+                            BestsInCustomer swap = viewBestCustomers[j];
+                            viewBestCustomers[j]=viewBestCustomers[j+1];
+                            viewBestCustomers[j+1]=swap;                    
+                        }
                     }
-                //}           
-                
+
+                }
+                 // if(viewBestCustomers[j].getQuantity()!=0 && viewBestCustomers[j+1].getQuantity()!=0){
+                 //     if(viewBestCustomers[j].getAmount()<viewBestCustomers[j+1].getAmount()){                   
+                 //         BestsInCustomer swap = viewBestCustomers[j];
+                 //         viewBestCustomers[j]=viewBestCustomers[j+1];
+                 //         viewBestCustomers[j+1]=swap;                    
+                 //     }
+                 // }               
             }
         }
         
@@ -1098,14 +1109,25 @@ class fashionShop{
         System.out.printf("\t\t\t\t\t\t|%15s %8s %14s\n","      Customer ID        |","     QTY       |","    Amount    |");   
         System.out.printf("\t\t\t\t\t\t%15s+%8s+%14s\n","+-------------------------","----------------","---------------+");
  
-        for(int i=0; i<count; i++){
-            // if(bestCustomer[i][2]!=null){                               
+        for(int i=0; i<count; i++){            
+            if(viewBestCustomers[i] != null){                
+                if(viewBestCustomers[i].getQuantity()!=0){ 
+                    System.out.printf("\t\t\t\t\t\t| %15s         | %8d       | %10.2f    |\n",viewBestCustomers[i].getPhoneNumber(),viewBestCustomers[i].getQuantity(),viewBestCustomers[i].getAmount());
+                    System.out.printf("\t\t\t\t\t\t| %15s         |%8s        | %14s|\n","","","");                                      
+                }
+
+            }
+            // if(viewBestCustomers[i].getQuantity()!=0){ 
+            //     System.out.printf("\t\t\t\t\t\t| %15s         | %8d       | %10.2f    |\n",viewBestCustomers[i].getPhoneNumber(),viewBestCustomers[i].getQuantity(),viewBestCustomers[i].getAmount());
+            //     System.out.printf("\t\t\t\t\t\t| %15s         |%8s        | %14s|\n","","","");                                      
             // }   
-            System.out.printf("\t\t\t\t\t\t| %15s         | %8d       | %10.2f    |\n",viewBestCustomers[i].getPhoneNumber(),viewBestCustomers[i].getQuantity(),viewBestCustomers[i].getAmount());
-            System.out.printf("\t\t\t\t\t\t| %15s         |%8s        | %14s|\n","","","");        
+            // System.out.printf("\t\t\t\t\t\t| %15s         | %8d       | %10.2f    |\n",viewBestCustomers[count].getPhoneNumber(),viewBestCustomers[count].getQuantity(),viewBestCustomers[count].getAmount());
+            // System.out.printf("\t\t\t\t\t\t| %15s         |%8s        | %14s|\n","","","");        
         } 
         System.out.printf("\t\t\t\t\t\t%15s+%8s+%14s\n","+-------------------------","----------------","---------------+");         
         System.out.println();
+
+        
 
 
         System.out.print("\t\t\t To access the main menu,Please enter 0 : ");
@@ -1138,14 +1160,16 @@ class fashionShop{
         boolean [] equalPass = new boolean[orderDetails.length];
 
         int count=0;
-        for(int i=0; i<viewCustomers.length; i++){
-            viewCustomers[count]=new BestsInCustomer();
-        }
+        // for(int i=0; i<viewCustomers.length; i++){
+        //     viewCustomers[count]=new BestsInCustomer();
+        // }
 
         for(int i=0; i<orderDetails.length; i++){
             if(equalPass[i]){
                 continue;
             }
+
+            viewCustomers[count]=new BestsInCustomer();
 
             int tempqty = orderDetails[i].getQuantity();
             double tempAmount = orderDetails[i].getAmount();
@@ -1168,16 +1192,17 @@ class fashionShop{
             viewCustomers[count].setPhoneNumber(customerPhoneNumber);
             viewCustomers[count].setQuantity(tempqty);
             viewCustomers[count].setAmount(tempAmount);
+            count++;
         }
 
         System.out.printf("\t\t\t\t\t\t%15s+%8s+%14s\n","+-------------------------","----------------","---------------+");
         System.out.printf("\t\t\t\t\t\t|%15s %8s %14s\n","      Customer ID        |","     QTY       |","    Amount    |");   
         System.out.printf("\t\t\t\t\t\t%15s+%8s+%14s\n","+-------------------------","----------------","---------------+");       
-        for(int i=0; i<viewCustomers.length; i++){
-            //if(bestCustomer[i][2]!=null){ 
+        for(int i=0; i<count; i++){
+            if(viewCustomers[i].getQuantity()!=0){ 
                 System.out.printf("\t\t\t\t\t\t| %15s         | %8d       |  %10.2f    |\n",viewCustomers[i].getPhoneNumber(),viewCustomers[i].getQuantity(),viewCustomers[i].getAmount());
                 System.out.printf("\t\t\t\t\t\t| %15s         |%8s        |  %14s|\n","","","");                              
-            //}                     
+            }                     
         } 
         System.out.printf("\t\t\t\t\t\t%15s+%8s+%14s\n","+-------------------------","----------------","---------------+");        
         System.out.println();
@@ -1212,11 +1237,12 @@ class fashionShop{
         //int allCustomerDetails[][] = new int [customerPhoneNumber.length][8];
 
         AllCustomers[] allCustomerDetails = new AllCustomers[orderDetails.length];
+        
         for(int i=0; i<allCustomerDetails.length; i++){
             allCustomerDetails[i]=new AllCustomers();
         }
 
-        boolean equalPass[] = new boolean[customerPhoneNumber.length];
+        boolean equalPass[] = new boolean[orderDetails.length];
         for(int i=0; i<orderDetails.length; i++){
             if(equalPass[i]){
                 continue;
@@ -1256,7 +1282,7 @@ class fashionShop{
 
             }else if(orderDetails[i].getSize().equals("L")){
                 tempLarge2=orderDetails[i].getQuantity();
-                allCustomerDetails[i].setMedium(tempMedium2);
+                allCustomerDetails[i].setLarge(tempLarge2);
             }
 
             tempAmount2=orderDetails[i].getAmount();  
@@ -1291,7 +1317,7 @@ class fashionShop{
     
                 }else if(orderDetails[i].getSize().equals("L")){
                     tempLarge2=orderDetails[i].getQuantity();
-                    allCustomerDetails[i].setMedium(tempMedium2);
+                    allCustomerDetails[i].setLarge(tempLarge2);
                 }
     
                 tempAmount2=orderDetails[i].getAmount();  
@@ -1304,9 +1330,9 @@ class fashionShop{
         System.out.printf("\t\t\t\t|%15s %5s %5s %5s %5s %5s %5s %12s\n","      Phone Number       |"," XS    |","   S   |","    M  |","    L  |","   XL  |","   XXL |","     Total    |");
         System.out.printf("\t\t\t\t%15s+%5s+%5s+%5s+%5s+%5s+%5s+%12s \n","+-------------------------","--------","--------","--------","--------","--------","--------","---------------+");
 
-        for (int i = 0; i < allCustomerDetails.length; i++) {
-            if (allCustomerDetails[i][0] != 0) {
-                System.out.printf("\t\t\t\t|%010d               |%5d   |%5d   |%5d   |%5d   |%5d   |%5d   |%12d   | \n", allCustomerDetails[i][0], allCustomerDetails[i][1],allCustomerDetails[i][2],allCustomerDetails[i][3],allCustomerDetails[i][4],allCustomerDetails[i][5],allCustomerDetails[i][6],allCustomerDetails[i][7]);
+        for (int i = 0; i <allCustomerDetails.length; i++) {
+            if (allCustomerDetails[i].getPhoneNumber() != null) {
+                System.out.printf("\t\t\t\t|%10s               |%5d   |%5d   |%5d   |%5d   |%5d   |%5d   |%10.2f     | \n", allCustomerDetails[i].getPhoneNumber(), allCustomerDetails[i].getXtraSamll(),allCustomerDetails[i].getSmall(),allCustomerDetails[i].getMediumSize(),allCustomerDetails[i].getLarge(),allCustomerDetails[i].getXtraLarge(),allCustomerDetails[i].getXtraXl(),allCustomerDetails[i].getAmount());
                 System.out.printf("\t\t\t\t|%15s          |%5s   |%5s   |%5s   |%5s   |%5s   |%5s   |%12s   | \n", "", "", "","","","","","");
             }
 
