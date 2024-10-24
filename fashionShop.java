@@ -241,6 +241,52 @@ class AllCustomers{
     }
 }
 
+class SortByQuantity{
+    private String size;
+    private int quantity;
+    private double amount;
+
+    SortByQuantity(){
+
+    }
+
+    SortByQuantity(String size,int quantity,double amount){
+        this.size=size;
+        this.quantity=quantity;
+        this.amount=amount;
+    }
+
+    // set size
+    public void setSize(String size){
+        this.size=size;
+    }
+
+    // get Size
+    public String getSize(){
+        return this.size;
+    }
+
+    // set quantity
+    public void setQuantity(int quantity){
+        this.quantity=quantity;        
+    }
+
+    // get quantity
+    public int getQuantity(){
+        return this.quantity;
+    }
+
+    // set amount
+    public void setAmount(double amount){
+        this.amount=amount;
+    }
+
+    // get amount
+    public double getAmount(){
+        return this.amount;
+    }
+}
+
 class fashionShop{
 
     public static FashionShopCustomerDetails[] orderDetails =  new FashionShopCustomerDetails[0];  
@@ -1406,14 +1452,19 @@ class fashionShop{
         System.out.println();
         System.out.println();
 
-        String [][] qtySorted = new String[6][3];
+        //String [][] qtySorted = new String[6][3];
 
-        qtySorted[0][0]="M";
-        qtySorted[1][0]="XL";
-        qtySorted[2][0]="XS";
-        qtySorted[3][0]="S";
-        qtySorted[4][0]="XXL";
-        qtySorted[5][0]="L";
+        SortByQuantity [] sortingByQuantity = new SortByQuantity[6];
+        for(int i=0; i<sortingByQuantity.length; i++){
+            sortingByQuantity[i]=new SortByQuantity();
+        }
+
+        sortingByQuantity[0].setSize("M");
+        sortingByQuantity[1].setSize("Xl");
+        sortingByQuantity[2].setSize("XS");
+        sortingByQuantity[3].setSize("S");
+        sortingByQuantity[4].setSize("XXL");
+        sortingByQuantity[5].setSize("L");
 
         int tempM4=0;
         int tempXs4=0;
@@ -1429,31 +1480,36 @@ class fashionShop{
         int smalltotal=0;
         int largetotal=0;
 
-        qtySorted[0][1]="0";
-        qtySorted[1][1]="0";
-        qtySorted[2][1]="0";
-        qtySorted[3][1]="0";
-        qtySorted[4][1]="0";
-        qtySorted[5][1]="0";
+        sortingByQuantity[0].setQuantity(0);
+        sortingByQuantity[1].setQuantity(0);
+        sortingByQuantity[2].setQuantity(0);
+        sortingByQuantity[3].setQuantity(0);
+        sortingByQuantity[4].setQuantity(0);
+        sortingByQuantity[5].setQuantity(0);
 
-        for(int i=0; i<customerPhoneNumber.length; i++){
-            if(tShirtSizeAr[i].equals("M")){
-                tempM4+=quantityAr[i];
-                qtySorted[0][1]=String.valueOf(tempM4);
-            }else if (tShirtSizeAr[i].equals("XL")){
-                tempXLarge4+=quantityAr[i];
+        for(int i=0; i<orderDetails.length; i++){
+            if(orderDetails[i].getSize().equals("M")){
+                tempM4+=orderDetails[i].getQuantity();
+                sortingByQuantity[0].setQuantity(tempM4);
+
+            }else if (orderDetails[i].getSize().equals("XL")){
+                tempXLarge4+=orderDetails[i].getQuantity();
                 qtySorted[1][1]=String.valueOf(tempXLarge4);
-            }else if(tShirtSizeAr[i].equals("XS")){
-                tempXs4+=quantityAr[i];
+
+            }else if(orderDetails[i].getSize().equals("XS")){
+                tempXs4+=orderDetails[i].getQuantity();
                 qtySorted[2][1]=String.valueOf(tempXs4);
-            }else if(tShirtSizeAr[i].equals("S")){
-                tempSmall4+=quantityAr[i];
+
+            }else if(orderDetails[i].getSize().equals("S")){
+                tempSmall4+=orderDetails[i].getQuantity();
                 qtySorted[3][1]=String.valueOf(tempSmall4);
-            }else if(tShirtSizeAr[i].equals("XXL")){
-                tempXtraXl4+=quantityAr[i];
+
+            }else if(orderDetails[i].getSize().equals("XXL")){
+                tempXtraXl4+=orderDetails[i].getQuantity();
                 qtySorted[4][1]=String.valueOf(tempXtraXl4);
-            }else if(tShirtSizeAr[i].equals("L")){
-                tempLarge4+=quantityAr[i];
+
+            }else if(orderDetails[i].getSize().equals("L")){
+                tempLarge4+=orderDetails[i].getQuantity();
                 qtySorted[5][1]=String.valueOf(tempLarge4);
             }
 
