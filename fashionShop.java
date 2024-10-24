@@ -161,7 +161,7 @@ class AllCustomers{
     }
 
     // set phone number
-    public void setPhoneNumber(int customerPhoneNumber){
+    public void setPhoneNumber(String customerPhoneNumber){
         this.customerPhoneNumber=customerPhoneNumber;
     }
 
@@ -231,7 +231,7 @@ class AllCustomers{
     }
 
     // set Amount
-    public void setLarge (double amount){
+    public void setAmount(double amount){
         this.amount=amount;
     }
 
@@ -1048,8 +1048,6 @@ class fashionShop{
         for(int i=0; i<viewBestCustomers.length; i++){
             viewBestCustomers[i]=new BestsInCustomer();
         }
-        
-
         boolean [] equalPass = new boolean[orderDetails.length];
 
         int count=0;
@@ -1137,11 +1135,13 @@ class fashionShop{
         //String [][] bestCustomer = new String[customerPhoneNumber.length][3];
 
         BestsInCustomer[] viewCustomers = new BestsInCustomer[orderDetails.length];
+        boolean [] equalPass = new boolean[orderDetails.length];
+
+        int count=0;
         for(int i=0; i<viewCustomers.length; i++){
-            viewCustomers[i]=new BestsInCustomer();
+            viewCustomers[count]=new BestsInCustomer();
         }
 
-        boolean [] equalPass = new boolean[orderDetails.length];
         for(int i=0; i<orderDetails.length; i++){
             if(equalPass[i]){
                 continue;
@@ -1165,9 +1165,9 @@ class fashionShop{
             // bestCustomer[i][1]=String.valueOf(tempqty);
             // bestCustomer[i][2]=String.valueOf(tempAmount);
 
-            viewCustomers[i].setPhoneNumber(customerPhoneNumber);
-            viewCustomers[i].setQuantity(tempqty);
-            viewCustomers[i].setAmount(tempAmount);
+            viewCustomers[count].setPhoneNumber(customerPhoneNumber);
+            viewCustomers[count].setQuantity(tempqty);
+            viewCustomers[count].setAmount(tempAmount);
         }
 
         System.out.printf("\t\t\t\t\t\t%15s+%8s+%14s\n","+-------------------------","----------------","---------------+");
@@ -1229,62 +1229,74 @@ class fashionShop{
             int tempSmall2=0;
             int tempLarge2=0;
             double tempAmount2=0;
+
+            String customerPhoneNumber = orderDetails[i].getPhoneNumber();
             
-            allCustomerDetails[i][0]=Integer.parseInt(customerPhoneNumber[i]);
-            if(tShirtSizeAr[i].equals("M")){
-                tempMedium2=quantityAr[i];
-                allCustomerDetails[i][3]=tempMedium2;
-            }else if (tShirtSizeAr[i].equals("XS")){
-                tempXtraSmall2=quantityAr[i];
-                allCustomerDetails[i][1]=tempXtraSmall2;
-            }else if(tShirtSizeAr[i].equals("XXL")){
-                tempXtraXl2=quantityAr[i];
-                allCustomerDetails[i][6]=tempXtraXl2;
+            allCustomerDetails[i].setPhoneNumber(customerPhoneNumber);
 
-            }else if(tShirtSizeAr[i].equals("XL")){
-                tempXtraLarge2=quantityAr[i];
-                allCustomerDetails[i][5]=tempXtraLarge2;
+            if(orderDetails[i].getSize().equals("M")){
+                tempMedium2=orderDetails[i].getQuantity();
+                allCustomerDetails[i].setMedium(tempMedium2);
 
-            }else if(tShirtSizeAr[i].equals("S")){
-                tempSmall2=quantityAr[i];
-                allCustomerDetails[i][2]=tempSmall2;
+            }else if (orderDetails[i].getSize().equals("XS")){
+                tempXtraSmall2=orderDetails[i].getQuantity();
+                allCustomerDetails[i].setXtraSmall(tempXtraSmall2);
 
-            }else if(tShirtSizeAr[i].equals("L")){
-                tempLarge2=quantityAr[i];
-                allCustomerDetails[i][4]=tempLarge2;
+            }else if(orderDetails[i].getSize().equals("XXL")){
+                tempXtraXl2=orderDetails[i].getQuantity();
+                allCustomerDetails[i].setXtraXl(tempXtraXl2);
+
+            }else if(orderDetails[i].getSize().equals("XL")){
+                tempXtraLarge2=orderDetails[i].getQuantity();
+                allCustomerDetails[i].setXtraLarge(tempXtraLarge2);
+
+            }else if(orderDetails[i].getSize().equals("S")){
+                tempSmall2=orderDetails[i].getQuantity();
+                allCustomerDetails[i].setSmall(tempSmall2);
+
+            }else if(orderDetails[i].getSize().equals("L")){
+                tempLarge2=orderDetails[i].getQuantity();
+                allCustomerDetails[i].setMedium(tempMedium2);
             }
 
-            tempAmount2=amountAr[i];  
-            allCustomerDetails[i][7]=(int)tempAmount2;           
+            tempAmount2=orderDetails[i].getAmount();  
+            allCustomerDetails[i].setAmount(tempAmount2);           
             equalPass[i]=true;            
     
-            for(int j=i+1; j<customerPhoneNumber.length; j++){
-                if(Integer.parseInt(customerPhoneNumber[i])==Integer.parseInt(customerPhoneNumber[j])){
+            for(int j=i+1; j<orderDetails.length; j++){
+                if(orderDetails[i].getPhoneNumber().equals(orderDetails[j].getPhoneNumber())){
+                    
+                // String customerPhoneNumber = orderDetails[i].getPhoneNumber();            
+                allCustomerDetails[i].setPhoneNumber(customerPhoneNumber);
 
-                    allCustomerDetails[i][0]=Integer.parseInt(customerPhoneNumber[i]);
-                    if(tShirtSizeAr[i].equals("M")){
-                        tempMedium2+=quantityAr[i];
-                        allCustomerDetails[i][3]=tempMedium2;
-                    }else if (tShirtSizeAr[i].equals("XS")){
-                        tempXtraSmall2+=quantityAr[i];
-                        allCustomerDetails[i][1]=tempXtraSmall2;
-                    }else if(tShirtSizeAr[i].equals("XXL")){
-                        tempXtraXl2+=quantityAr[i];
-                        allCustomerDetails[i][6]=tempXtraXl2;
-                    }else if(tShirtSizeAr[i].equals("XL")){
-                        tempXtraLarge2+=quantityAr[i];
-                        allCustomerDetails[i][5]=tempXtraLarge2;
-                    }else if(tShirtSizeAr[i].equals("S")){
-                        tempSmall2+=quantityAr[i];
-                        allCustomerDetails[i][2]=tempSmall2;
-                    }else if(tShirtSizeAr[i].equals("L")){
-                        tempLarge2+=quantityAr[i];
-                        allCustomerDetails[i][4]=tempLarge2;
-                    }
-                    tempAmount2+=amountAr[i]; 
-                    allCustomerDetails[i][7]=(int)tempAmount2;                    
-                        
-                    equalPass[j]=true;
+                if(orderDetails[i].getSize().equals("M")){
+                    tempMedium2=orderDetails[i].getQuantity();
+                    allCustomerDetails[i].setMedium(tempMedium2);
+    
+                }else if (orderDetails[i].getSize().equals("XS")){
+                    tempXtraSmall2=orderDetails[i].getQuantity();
+                    allCustomerDetails[i].setXtraSmall(tempXtraSmall2);
+    
+                }else if(orderDetails[i].getSize().equals("XXL")){
+                    tempXtraXl2=orderDetails[i].getQuantity();
+                    allCustomerDetails[i].setXtraXl(tempXtraXl2);
+    
+                }else if(orderDetails[i].getSize().equals("XL")){
+                    tempXtraLarge2=orderDetails[i].getQuantity();
+                    allCustomerDetails[i].setXtraLarge(tempXtraLarge2);
+    
+                }else if(orderDetails[i].getSize().equals("S")){
+                    tempSmall2=orderDetails[i].getQuantity();
+                    allCustomerDetails[i].setSmall(tempSmall2);
+    
+                }else if(orderDetails[i].getSize().equals("L")){
+                    tempLarge2=orderDetails[i].getQuantity();
+                    allCustomerDetails[i].setMedium(tempMedium2);
+                }
+    
+                tempAmount2=orderDetails[i].getAmount();  
+                allCustomerDetails[i].setAmount(tempAmount2);           
+                equalPass[i]=true;            
                 }                
             }           
         }        
