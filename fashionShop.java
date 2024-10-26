@@ -241,16 +241,16 @@ class AllCustomers{
     }
 }
 
-class SortByQuantity{
+class Sorting{
     private String size;
     private int quantity;
     private double amount;
 
-    SortByQuantity(){
+    Sorting(){
 
     }
 
-    SortByQuantity(String size,int quantity,double amount){
+    Sorting(String size,int quantity,double amount){
         this.size=size;
         this.quantity=quantity;
         this.amount=amount;
@@ -1454,9 +1454,9 @@ class fashionShop{
 
         //String [][] qtySorted = new String[6][3];
 
-        SortByQuantity [] sortingByQuantity = new SortByQuantity[6];
+        Sorting [] sortingByQuantity = new Sorting[6];
         for(int i=0; i<sortingByQuantity.length; i++){
-            sortingByQuantity[i]=new SortByQuantity();
+            sortingByQuantity[i]=new Sorting();
         }
 
         sortingByQuantity[0].setSize("M");
@@ -1494,23 +1494,23 @@ class fashionShop{
 
             }else if (orderDetails[i].getSize().equals("XL")){
                 tempXLarge4+=orderDetails[i].getQuantity();
-                qtySorted[1][1]=String.valueOf(tempXLarge4);
+                sortingByQuantity[1].setQuantity(tempXLarge4);
 
             }else if(orderDetails[i].getSize().equals("XS")){
                 tempXs4+=orderDetails[i].getQuantity();
-                qtySorted[2][1]=String.valueOf(tempXs4);
+                sortingByQuantity[2].setQuantity(tempXs4);
 
             }else if(orderDetails[i].getSize().equals("S")){
                 tempSmall4+=orderDetails[i].getQuantity();
-                qtySorted[3][1]=String.valueOf(tempSmall4);
+                sortingByQuantity[3].setQuantity(tempSmall4);
 
             }else if(orderDetails[i].getSize().equals("XXL")){
                 tempXtraXl4+=orderDetails[i].getQuantity();
-                qtySorted[4][1]=String.valueOf(tempXtraXl4);
+                sortingByQuantity[4].setQuantity(tempXtraXl4);
 
             }else if(orderDetails[i].getSize().equals("L")){
                 tempLarge4+=orderDetails[i].getQuantity();
-                qtySorted[5][1]=String.valueOf(tempLarge4);
+                sortingByQuantity[5].setQuantity(tempLarge4);
             }
 
             mtotal=tempM4*900;
@@ -1520,29 +1520,29 @@ class fashionShop{
             xtraxltotal=tempXtraXl4*1200;           
             largetotal=tempLarge4*1000;
 
-            qtySorted[0][2]=String.valueOf(mtotal);
-            qtySorted[1][2]=String.valueOf(xlargetotal);
-            qtySorted[2][2]=String.valueOf(xstotal);
-            qtySorted[3][2]=String.valueOf(smalltotal);
-            qtySorted[4][2]=String.valueOf(xtraxltotal);
-            qtySorted[5][2]=String.valueOf(largetotal);
+            sortingByQuantity[0].setAmount((double)mtotal);
+            sortingByQuantity[1].setAmount((double)xlargetotal);
+            sortingByQuantity[2].setAmount((double)xstotal);
+            sortingByQuantity[3].setAmount((double)smalltotal);
+            sortingByQuantity[4].setAmount((double)xtraxltotal);
+            sortingByQuantity[5].setAmount((double)largetotal);
           
         }
         for(int i=5; i>0; i--){           
             for(int j=0; j<i; j++){              
-                if(Integer.parseInt(qtySorted[j][1])<Integer.parseInt(qtySorted[j+1][1])){                   
-                        String [] swap = qtySorted[j];
-                        qtySorted[j]=qtySorted[j+1];
-                        qtySorted[j+1]=swap;                    
+                if(sortingByQuantity[j].getQuantity()<sortingByQuantity[j+1].getQuantity()){                   
+                        Sorting swap = sortingByQuantity[j];
+                        sortingByQuantity[j]=sortingByQuantity[j+1];
+                        sortingByQuantity[j+1]=swap;                    
                 }           
             }
         }
         System.out.printf("\t\t\t\t\t\t%15s+%8s+%14s\n","+---------------","----------------","---------------+");
         System.out.printf("\t\t\t\t\t\t|%15s %8s %14s\n","      Size     |","     QTY       |","    Amount    |");   
         System.out.printf("\t\t\t\t\t\t%15s+%8s+%14s\n","+---------------","----------------","---------------+");       
-        for(int i=0; i<qtySorted.length; i++){
-            if(qtySorted[i][1]!=null){                 
-                System.out.printf("\t\t\t\t\t\t| %10s    | %8s       |  %10.2f   |\n",qtySorted[i][0],qtySorted[i][1],Double.parseDouble(qtySorted[i][2]));
+        for(int i=0; i<sortingByQuantity.length; i++){
+            if(sortingByQuantity[i]!=null){                 
+                System.out.printf("\t\t\t\t\t\t| %10s    | %8d       |  %10.2f   |\n",sortingByQuantity[i].getSize(),sortingByQuantity[i].getQuantity(),sortingByQuantity[i].getAmount());
                 System.out.printf("\t\t\t\t\t\t| %10s    |%8s        |  %10s   |\n","","","");                                            
             }                     
         } 
@@ -1574,14 +1574,19 @@ class fashionShop{
         System.out.println();
         System.out.println();
 
-        String[][] amountSorted = new String[6][3];
+        //String[][] amountSorted = new String[6][3];
 
-        amountSorted[0][0]="M";
-        amountSorted[1][0]="XL";
-        amountSorted[2][0]="XS";
-        amountSorted[3][0]="S";
-        amountSorted[4][0]="XXL";
-        amountSorted[5][0]="L";
+        Sorting [] sortByAmount = new Sorting[6];
+        for(int i=0; i<sortByAmount.length; i++){
+            sortByAmount[i]=new Sorting();
+        }
+
+        sortByAmount[0].setSize("M");
+        sortByAmount[1].setSize("XL");
+        sortByAmount[2].setSize("XS");
+        sortByAmount[3].setSize("S");
+        sortByAmount[4].setSize("XXL");
+        sortByAmount[5].setSize("L");
 
         int tempM4=0;
         int tempXs4=0;
@@ -1597,32 +1602,37 @@ class fashionShop{
         int smalltotal=0;
         int largetotal=0;
 
-        amountSorted[0][1]="0";
-        amountSorted[1][1]="0";
-        amountSorted[2][1]="0";
-        amountSorted[3][1]="0";
-        amountSorted[4][1]="0";
-        amountSorted[5][1]="0";
+        sortByAmount[0].setQuantity(0);
+        sortByAmount[1].setQuantity(0);
+        sortByAmount[2].setQuantity(0);
+        sortByAmount[3].setQuantity(0);
+        sortByAmount[4].setQuantity(0);
+        sortByAmount[5].setQuantity(0);
 
-        for(int i=0; i<customerPhoneNumber.length; i++){
-            if(tShirtSizeAr[i].equals("M")){
-                tempM4+=quantityAr[i];
-                amountSorted[0][1]=String.valueOf(tempM4);
-            }else if (tShirtSizeAr[i].equals("XL")){
-                tempXLarge4+=quantityAr[i];
-                amountSorted[1][1]=String.valueOf(tempXLarge4);
-            }else if(tShirtSizeAr[i].equals("XS")){
-                tempXs4+=quantityAr[i];
-                amountSorted[2][1]=String.valueOf(tempXs4);
-            }else if(tShirtSizeAr[i].equals("S")){
-                tempSmall4+=quantityAr[i];
-                amountSorted[3][1]=String.valueOf(tempSmall4);
-            }else if(tShirtSizeAr[i].equals("XXL")){
-                tempXtraXl4+=quantityAr[i];
-                amountSorted[4][1]=String.valueOf(tempXtraXl4);
-            }else if(tShirtSizeAr[i].equals("L")){
-                tempLarge4+=quantityAr[i];
-                amountSorted[5][1]=String.valueOf(tempLarge4);
+        for(int i=0; i<orderDetails.length; i++){
+            if(orderDetails[i].getSize().equals("M")){
+                tempM4+=orderDetails[i].getQuantity();
+                sortByAmount[0].setQuantity(tempM4);
+
+            }else if (orderDetails[i].getSize().equals("XL")){
+                tempXLarge4+=orderDetails[i].getQuantity();
+                sortByAmount[1].setQuantity(tempXLarge4);
+
+            }else if(orderDetails[i].getSize().equals("XS")){
+                tempXs4+=orderDetails[i].getQuantity();
+                sortByAmount[2].setQuantity(tempXs4);
+
+            }else if(orderDetails[i].getSize().equals("S")){
+                tempSmall4+=orderDetails[i].getQuantity();
+                sortByAmount[3].setQuantity(tempSmall4);
+
+            }else if(orderDetails[i].getSize().equals("XXL")){
+                tempXtraXl4+=orderDetails[i].getQuantity();
+                sortByAmount[4].setQuantity(tempXtraXl4);
+
+            }else if(orderDetails[i].getSize().equals("L")){
+                tempLarge4+=orderDetails[i].getQuantity();
+                sortByAmount[5].setQuantity(tempLarge4);
             }
 
             mtotal=tempM4*900;
@@ -1632,29 +1642,29 @@ class fashionShop{
             xtraxltotal=tempXtraXl4*1200;           
             largetotal=tempLarge4*1000;
 
-            amountSorted[0][2]=String.valueOf(mtotal);
-            amountSorted[1][2]=String.valueOf(xlargetotal);
-            amountSorted[2][2]=String.valueOf(xstotal);
-            amountSorted[3][2]=String.valueOf(smalltotal);
-            amountSorted[4][2]=String.valueOf(xtraxltotal);
-            amountSorted[5][2]=String.valueOf(largetotal);
+            sortByAmount[0].setAmount((double)mtotal);
+            sortByAmount[1].setAmount((double)xlargetotal);
+            sortByAmount[2].setAmount((double)xstotal);
+            sortByAmount[3].setAmount((double)smalltotal);
+            sortByAmount[4].setAmount((double)xtraxltotal);
+            sortByAmount[5].setAmount((double)largetotal);
           
         }
         for(int i=5; i>0; i--){           
             for(int j=0; j<i; j++){              
-                if(Integer.parseInt(amountSorted[j][2])<Integer.parseInt(amountSorted[j+1][2])){                   
-                        String [] swap = amountSorted[j];
-                        amountSorted[j]=amountSorted[j+1];
-                        amountSorted[j+1]=swap;                    
+                if(sortByAmount[j].getAmount()<sortByAmount[j+1].getAmount()){                   
+                        Sorting swap = sortByAmount[j];
+                        sortByAmount[j]=sortByAmount[j+1];
+                        sortByAmount[j+1]=swap;                    
                 }           
             }
         }
         System.out.printf("\t\t\t\t\t\t%15s+%8s+%14s\n","+---------------","----------------","---------------+");
         System.out.printf("\t\t\t\t\t\t|%15s %8s %14s\n","      Size     |","     QTY       |","    Amount    |");   
         System.out.printf("\t\t\t\t\t\t%15s+%8s+%14s\n","+---------------","----------------","---------------+");       
-        for(int i=0; i<amountSorted.length; i++){
-            if(amountSorted[i][1]!=null){                 
-                System.out.printf("\t\t\t\t\t\t| %10s    | %8s       |  %10.2f   |\n",amountSorted[i][0],amountSorted[i][1],Double.parseDouble(amountSorted[i][2]));
+        for(int i=0; i<sortByAmount.length; i++){
+            if(sortByAmount[i]!=null){                 
+                System.out.printf("\t\t\t\t\t\t| %10s    | %8d       |  %10.2f   |\n",sortByAmount[i].getSize(),sortByAmount[i].getQuantity(),sortByAmount[i].getAmount());
                 System.out.printf("\t\t\t\t\t\t| %10s    |%8s        |  %10s   |\n","","","");                                            
             }                     
         } 
@@ -1725,14 +1735,15 @@ class fashionShop{
         System.out.println();
         System.out.println();                                                                                                        
  
-        String [] temporderStatus = new String[orderStatusAr.length];
-        for(int i=0; i<orderStatusAr.length; i++){
-            if(orderStatusAr[i]==1){
-                temporderStatus[i]="Delivering";
-            }else if(orderStatusAr[i]==2){
-                temporderStatus[i]="Delivered";
+        //String [] temporderStatus = new String[orderStatusAr.length];
+
+        for(int i=0; i<orderDetails.length; i++){
+            if(orderDetails[i].getOrderStatus()==1){
+                orderDetails[i].setOrderStatus(delivering);
+            }else if(orderDetails[i].getOrderStatus()==2){
+                orderDetails[i].setOrderStatus(delivered);
             }else{
-                temporderStatus[i]="Processing";
+                orderDetails[i].setOrderStatus(processing);
             }
         }
 
@@ -1740,8 +1751,8 @@ class fashionShop{
         System.out.printf("\t\t\t | %10s  |%14s | %6s | %6s | %10s | %10s     |%n","Order iD","Customer ID","Size","QTY","Amount","Status");
         System.out.printf("\t\t\t +-------------+---------------+--------+--------+------------+----------------+%n");   
 
-        for(int i=orderId.length-1; i>=0; i--){
-            System.out.printf("\t\t\t | %10s  |%14s | %6s | %6d | %10.2f | %10s      |%n",orderId[i],customerPhoneNumber[i],tShirtSizeAr[i],quantityAr[i],amountAr[i],temporderStatus[i]);           
+        for(int i=orderDetails.length-1; i>=0; i--){
+            System.out.printf("\t\t\t | %10s  |%14s | %6s | %6d | %10.2f | %10d      |%n",orderDetails[i].getOrderId(),orderDetails[i].getPhoneNumber(),orderDetails[i].getSize(),orderDetails[i].getQuantity(),orderDetails[i].getAmount(),orderDetails[i].getOrderStatus());           
         }
         System.out.printf("\t\t\t +-------------+---------------+--------+--------+------------+----------------+%n");
 
