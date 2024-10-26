@@ -85,6 +85,17 @@ class FashionShopCustomerDetails{
 	public int getOrderStatus(){
 		return this.orderStatus;
 	}
+
+    // get order status delivering . processing or delivered
+    public String printOrderStatus(){
+        if(this.orderStatus==1){
+            return "Delivering";
+        }else if(this.orderStatus==2){
+            return "Delivered";
+        }else{
+            return "Processing";
+        }
+    }
 }
 
 // Best In Cusomter Class
@@ -957,8 +968,8 @@ class fashionShop{
             }
         }
 
+        
         orderDetails=tempDeletingOrders;
-        System.out.println(Arrays.toString(orderDetails));
 
 
         // for(int i=0, j=0; i<orderId.length; i++){
@@ -1752,7 +1763,7 @@ class fashionShop{
         System.out.printf("\t\t\t +-------------+---------------+--------+--------+------------+----------------+%n");   
 
         for(int i=orderDetails.length-1; i>=0; i--){
-            System.out.printf("\t\t\t | %10s  |%14s | %6s | %6d | %10.2f | %10d      |%n",orderDetails[i].getOrderId(),orderDetails[i].getPhoneNumber(),orderDetails[i].getSize(),orderDetails[i].getQuantity(),orderDetails[i].getAmount(),orderDetails[i].getOrderStatus());           
+            System.out.printf("\t\t\t | %10s  |%14s | %6s | %6d | %10.2f | %10s      |%n",orderDetails[i].getOrderId(),orderDetails[i].getPhoneNumber(),orderDetails[i].getSize(),orderDetails[i].getQuantity(),orderDetails[i].getAmount(),orderDetails[i].printOrderStatus());           
         }
         System.out.printf("\t\t\t +-------------+---------------+--------+--------+------------+----------------+%n");
 
@@ -1782,39 +1793,39 @@ class fashionShop{
         System.out.println();
 
 
-        for(int i=amountAr.length-1; i>0; i--){
+        for(int i=orderDetails.length-1; i>0; i--){
             for(int j=0; j<i; j++)
-            if(amountAr[j]<amountAr[j+1]){
-                double swap=amountAr[j];
-                amountAr[j]=amountAr[j+1];
-                amountAr[j+1]=swap;
+            if(orderDetails[j].getAmount()<orderDetails[j+1].getAmount()){
+                FashionShopCustomerDetails swap=orderDetails[j];
+                orderDetails[j]=orderDetails[j+1];
+                orderDetails[j+1]=swap;
 
-                String swap2=orderId[j];
-                orderId[j]=orderId[j+1];
-                orderId[j+1]=swap2;
+                // String swap2=orderId[j];
+                // orderId[j]=orderId[j+1];
+                // orderId[j+1]=swap2;
 
-                String swap3 = customerPhoneNumber[j];
-                customerPhoneNumber[j]=customerPhoneNumber[j+1];
-                customerPhoneNumber[j+1]=swap3;
+                // String swap3 = customerPhoneNumber[j];
+                // customerPhoneNumber[j]=customerPhoneNumber[j+1];
+                // customerPhoneNumber[j+1]=swap3;
 
-                String swap4 = tShirtSizeAr[j];
-                tShirtSizeAr[j]=tShirtSizeAr[j+1];
-                tShirtSizeAr[j+1]=swap4;
+                // String swap4 = tShirtSizeAr[j];
+                // tShirtSizeAr[j]=tShirtSizeAr[j+1];
+                // tShirtSizeAr[j+1]=swap4;
 
-                int swap5 = quantityAr[j];
-                quantityAr[j]=quantityAr[j+1];
-                quantityAr[j+1]=swap5;
+                // int swap5 = quantityAr[j];
+                // quantityAr[j]=quantityAr[j+1];
+                // quantityAr[j+1]=swap5;
             }
         }
 
-        String [] temporderStatus = new String[orderStatusAr.length];
-        for(int i=0; i<orderStatusAr.length; i++){
-            if(orderStatusAr[i]==1){
-                temporderStatus[i]="Delivering";
-            }else if(orderStatusAr[i]==2){
-                temporderStatus[i]="Delivered";
+        //String [] temporderStatus = new String[orderStatusAr.length];
+        for(int i=0; i<orderDetails.length; i++){
+            if(orderDetails[i].getOrderStatus()==1){
+                orderDetails[i].setOrderStatus(delivering);
+            }else if(orderDetails[i].getOrderStatus()==2){
+                orderDetails[i].setOrderStatus(delivered);
             }else{
-                temporderStatus[i]="Processing";
+                orderDetails[i].setOrderStatus(processing);
             }
         }
 
@@ -1822,8 +1833,8 @@ class fashionShop{
         System.out.printf("\t\t\t | %10s  |%14s | %6s | %6s | %10s | %10s     |%n","Order iD","Customer ID","Size","QTY","Amount","Status");
         System.out.printf("\t\t\t +-------------+---------------+--------+--------+------------+----------------+%n");   
 
-        for(int i=0; i<orderId.length; i++){
-            System.out.printf("\t\t\t | %10s  |%14s | %6s | %6d | %10.2f | %10s     |%n",orderId[i],customerPhoneNumber[i],tShirtSizeAr[i],quantityAr[i],amountAr[i],temporderStatus[i]);           
+        for(int i=0; i<orderDetails.length; i++){
+            System.out.printf("\t\t\t | %10s  |%14s | %6s | %6d | %10.2f | %10s     |%n",orderDetails[i].getOrderId(),orderDetails[i].getPhoneNumber(),orderDetails[i].getSize(),orderDetails[i].getQuantity(),orderDetails[i].getAmount(),orderDetails[i].printOrderStatus());           
         }
         System.out.printf("\t\t\t +-------------+---------------+--------+--------+------------+----------------+%n");
 
@@ -1858,17 +1869,17 @@ class fashionShop{
 
         boolean isValid=false;
 
-        for(int i=0; i<orderId.length; i++){
-            if(custEnterOrderNumber.equals(orderId[i])){
-                System.out.println("\t\t\t\t\t\t\t Phone Number : "+ customerPhoneNumber[i]);
-                System.out.println("\t\t\t\t\t\t\t Size \t :\t "+ tShirtSizeAr[i]);
-                System.out.println("\t\t\t\t\t\t\t QTY \t : \t "+quantityAr[i]);
-                System.out.println("\t\t\t\t\t\t\t Amount  : \t "+ decor.format(amountAr[i]));
+        for(int i=0; i<orderDetails.length; i++){
+            if(custEnterOrderNumber.equals(orderDetails[i].getOrderId())){
+                System.out.println("\t\t\t\t\t\t\t Phone Number : "+ orderDetails[i].getPhoneNumber());
+                System.out.println("\t\t\t\t\t\t\t Size \t :\t "+ orderDetails[i].getSize());
+                System.out.println("\t\t\t\t\t\t\t QTY \t : \t "+orderDetails[i].getQuantity());
+                System.out.println("\t\t\t\t\t\t\t Amount  : \t "+ decor.format(orderDetails[i].getAmount()));
 
                 String printOrderStatus="";
-                if(orderStatusAr[i]==1){
+                if(orderDetails[i].getOrderStatus()==1){
                     printOrderStatus="DELIVERING";
-                }else if(orderStatusAr[i]==2){
+                }else if(orderDetails[i].getOrderStatus()==2){
                     printOrderStatus="DELIVERED";
                 }else{
                     printOrderStatus="PROCESSING";
@@ -1885,7 +1896,7 @@ class fashionShop{
                 System.out.println();
 
                 if(changeOrderStatus=='Y'|| changeOrderStatus=='y'){
-                    if(orderStatusAr[i]==0){
+                    if(orderDetails[i].getOrderStatus()==0){
                         System.out.println("\t\t\t\t\t [1] Order Delivering");
                         System.out.println();
                         System.out.println("\t\t\t\t\t [2] Order Delivered");
@@ -1897,10 +1908,10 @@ class fashionShop{
     
                         switch (orderStatusChange) {
                             case 1:
-                                orderStatusAr[i]=delivering;                        
+                                orderDetails[i].setOrderStatus(delivering);                        
                                 break;
                             case 2:
-                                orderStatusAr[i]=delivered;                        
+                                orderDetails[i].setOrderStatus(delivered);;                        
                                 break;                         
                         }
     
@@ -1920,7 +1931,7 @@ class fashionShop{
                             main(null);
                         }
     
-                    }else if(orderStatusAr[i]==1){                                        
+                    }else if(orderDetails[i].getOrderStatus()==1){                                        
                         System.out.println("\t\t\t\t\t [1] Order Delivered");
                         System.out.println();
     
@@ -1930,7 +1941,7 @@ class fashionShop{
     
                         switch (orderStatusChange2) {
                             case 1:
-                                orderStatusAr[i]=delivered;                        
+                                orderDetails[i].setOrderStatus(delivered);
                                 break;                                                 
                         }
                         System.out.println("\t\t\t Status Updated...!");
@@ -1949,7 +1960,7 @@ class fashionShop{
                             main(null);
                         }
     
-                    }else if(orderStatusAr[i]==2){
+                    }else if(orderDetails[i].getOrderStatus()==2){
                         System.out.println("\t\t\t\t\t Cant Change this order status...order already delivered...!");
                         System.out.println();
     
@@ -1973,6 +1984,5 @@ class fashionShop{
                 }                              
             }
         }                                                                   
-    } 
-      
+    }     
 }
