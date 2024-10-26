@@ -1644,23 +1644,27 @@ class fashionShop{
         System.out.println();
         System.out.println();
 
+        FashionShopCustomerDetails[] sortingByAmount = new FashionShopCustomerDetails[orderDetails.length];
+        for(int i=0; i<orderDetails.length; i++){
+            sortingByAmount[i]=orderDetails[i];
+        }        
 
         for(int i=orderDetails.length-1; i>0; i--){
             for(int j=0; j<i; j++)
-            if(orderDetails[j].getAmount()<orderDetails[j+1].getAmount()){
+            if(sortingByAmount[j].getAmount()<sortingByAmount[j+1].getAmount()){
                 FashionShopCustomerDetails swap=orderDetails[j];
-                orderDetails[j]=orderDetails[j+1];
-                orderDetails[j+1]=swap;
+                sortingByAmount[j]=sortingByAmount[j+1];
+                sortingByAmount[j+1]=swap;
             }
         }
 
         for(int i=0; i<orderDetails.length; i++){
-            if(orderDetails[i].getOrderStatus()==1){
-                orderDetails[i].setOrderStatus(delivering);
-            }else if(orderDetails[i].getOrderStatus()==2){
-                orderDetails[i].setOrderStatus(delivered);
+            if(sortingByAmount[i].getOrderStatus()==1){
+                sortingByAmount[i].setOrderStatus(delivering);
+            }else if(sortingByAmount[i].getOrderStatus()==2){
+                sortingByAmount[i].setOrderStatus(delivered);
             }else{
-                orderDetails[i].setOrderStatus(processing);
+                sortingByAmount[i].setOrderStatus(processing);
             }
         }
 
@@ -1669,7 +1673,7 @@ class fashionShop{
         System.out.printf("\t\t\t +-------------+---------------+--------+--------+------------+----------------+%n");   
 
         for(int i=0; i<orderDetails.length; i++){
-            System.out.printf("\t\t\t | %10s  |%14s | %6s | %6d | %10.2f | %10s     |%n",orderDetails[i].getOrderId(),orderDetails[i].getPhoneNumber(),orderDetails[i].getSize(),orderDetails[i].getQuantity(),orderDetails[i].getAmount(),orderDetails[i].printOrderStatus());           
+            System.out.printf("\t\t\t | %10s  |%14s | %6s | %6d | %10.2f | %10s     |%n",sortingByAmount[i].getOrderId(),sortingByAmount[i].getPhoneNumber(),sortingByAmount[i].getSize(),sortingByAmount[i].getQuantity(),sortingByAmount[i].getAmount(),sortingByAmount[i].printOrderStatus());           
         }
         System.out.printf("\t\t\t +-------------+---------------+--------+--------+------------+----------------+%n");
 
