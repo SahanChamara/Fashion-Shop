@@ -107,7 +107,6 @@ class BestsInCustomer{
     BestsInCustomer(){
 
     }
-
     BestsInCustomer(int quantity,double amount,String customerPhoneNumber){
         this.quantity=quantity;
         this.amount=amount;
@@ -145,7 +144,6 @@ class BestsInCustomer{
         return this.customerPhoneNumber;
     }
 }
-
 class AllCustomers{
     private String customerPhoneNumber;
     private int medium;
@@ -301,7 +299,6 @@ class Sorting{
 class fashionShop{
 
     public static FashionShopCustomerDetails[] orderDetails =  new FashionShopCustomerDetails[0];  
-    //public static BestsInCustomer[] viewCustomers = new BestsInCustomer[orderDetails.length];
 
     static int [] oid = new int[5] ;        // Order id Array
     static String odr = "ODR#0000";
@@ -311,11 +308,6 @@ class fashionShop{
     static String tShirtSize="";   
     static int qty=0;
     static double amount=0;
-    static String [] orderId = new String [0];              // order id array
-    static String [] customerPhoneNumber = new String[0];   /// phone number array
-    static String []  tShirtSizeAr = new String [0];        // tshier size array
-    static int[] quantityAr = new int [0];                  // quantity array
-    static double [] amountAr = new double[0];              // amount array
 
     static int tempMedium=0;
     static int tempXtraLarge=0;
@@ -435,7 +427,6 @@ class fashionShop{
         System.out.println();
         System.out.println();  
         
-        //orderNumber++;
         enterOrderID(); 
         phoneNumber();
         tShirtSizeCheck();
@@ -447,7 +438,6 @@ class fashionShop{
         System.out.print("\t\t\t\t\t\t\t Enter Order ID : "+newGeneratedORderID);        
         System.out.println(); 
         System.out.println();      
-        //System.out.println(orderNumber);  
     }
     // ================= order id increment method =========================
     public static void incrementOid(){
@@ -472,7 +462,7 @@ class fashionShop{
     public static void phoneNumber(){
         Scanner pNum = new Scanner(System.in);
 
-        //int [] customerPhoneNumber = new int [10];
+        
         System.out.print("\t\t\t\t\t\t\t Enter Customer Phone Number : ");        
         phoneNumber = pNum.next();
         System.out.println();
@@ -576,16 +566,6 @@ class fashionShop{
                        
             userDetails();
 
-            // teporaly checkking inputs storing the array object......
-            for(int i=0; i<orderDetails.length; i++){
-                System.out.println(orderDetails[i].getOrderId());
-                System.out.println(orderDetails[i].getPhoneNumber());
-                System.out.println(orderDetails[i].getSize());
-                System.out.println(orderDetails[i].getQuantity());
-                System.out.println(orderDetails[i].getAmount());
-            }
-
-
             System.out.println("\t\t\t\t\t\t\t\t\t\t Order Placed...!");
             orderNumber++;
             System.out.println();
@@ -624,53 +604,7 @@ class fashionShop{
         customerOrderDetails.setAmount(amount);
         customerOrderDetails.setOrderStatus(processing);
 
-        orderDetails[orderDetails.length-1]=customerOrderDetails;
-
-        // String [] tempOrderID = new String [orderId.length+1];
-        // String [] tempCustomerPhoneNum = new String [customerPhoneNumber.length+1];
-        // String [] temptShirtSize = new String[tShirtSizeAr.length+1];
-        // int [] tempQuantity = new int[quantityAr.length+1];
-        // double [] tempAmount = new double[amountAr.length+1];
-        // // String [] tempOrderStatus = new String [orderStatusAr.length+1];
-        // int [] tempOrderStatus = new int [orderStatusAr.length+1];
-        
-        // for(int i=0; i<orderId.length; i++){            
-        //     tempOrderID[i]=orderId[i];
-        // }
-        // for(int i=0; i<customerPhoneNumber.length; i++){
-        //     tempCustomerPhoneNum[i]=customerPhoneNumber[i];
-        // }
-        // for(int i=0; i<tShirtSizeAr.length; i++){
-        //     temptShirtSize[i]=tShirtSizeAr[i];
-        // }
-        // for(int i=0; i<quantityAr.length; i++){
-        //     tempQuantity[i]=quantityAr[i];
-        // }
-        // for(int i=0; i<amountAr.length; i++){
-        //     tempAmount[i]=amountAr[i];
-        // }
-        // for(int i=0; i<orderStatusAr.length; i++){
-        //     tempOrderStatus[i]=orderStatusAr[i];
-        // }
-
-        // tempOrderID[tempOrderID.length-1]=newGeneratedORderID;
-        // orderId=tempOrderID;
-        
-        // tempCustomerPhoneNum[tempCustomerPhoneNum.length-1]=phoneNumber;
-        // customerPhoneNumber=tempCustomerPhoneNum;
-
-        // temptShirtSize[temptShirtSize.length-1]=tShirtSize;
-        // tShirtSizeAr=temptShirtSize;
-
-        // tempQuantity[tempQuantity.length-1]=qty;
-        // quantityAr=tempQuantity;
-
-        // tempAmount[tempAmount.length-1]=amount;
-        // amountAr=tempAmount;
-        
-        // tempOrderStatus[tempOrderStatus.length-1]=processing;
-        // orderStatusAr=tempOrderStatus;
-        
+        orderDetails[orderDetails.length-1]=customerOrderDetails;                
     }
     // =================================== Search Customer Mthod ============================================
     public static void serachCustomer(){
@@ -954,41 +888,15 @@ class fashionShop{
                      
     }
     public static void orderDeleteAr(int delIndex){
-        // String [] tempOrderID = new String [orderId.length-1];
-        // String [] tempCustomerPhoneNum = new String [customerPhoneNumber.length-1];
-        // String [] temptShirtSize = new String[tShirtSizeAr.length-1];
-        // int [] tempQuantity = new int[quantityAr.length-1];
-        // double [] tempAmount = new double[amountAr.length-1];
-        // int [] tempOrderStatus = new int [orderStatusAr.length-1];
 
         FashionShopCustomerDetails [] tempDeletingOrders = new FashionShopCustomerDetails[orderDetails.length-1];
         for(int i=0, j=0; i<orderDetails.length; i++){
             if(i!=delIndex){
                 tempDeletingOrders[j]=orderDetails[i];
+                j++;
             }
-        }
-
-        
+        }        
         orderDetails=tempDeletingOrders;
-
-
-        // for(int i=0, j=0; i<orderId.length; i++){
-        //     if(i!=delIndex){
-        //         tempOrderID[j]=orderId[i];
-        //         tempCustomerPhoneNum[j]=customerPhoneNumber[i];
-        //         temptShirtSize[j]=tShirtSizeAr[i];
-        //         tempQuantity[j]=quantityAr[i];
-        //         tempAmount[j]=amountAr[i];
-        //         tempOrderStatus[j]=orderStatusAr[i];
-        //         j++;
-        //     }
-        // }
-        // orderId=tempOrderID;
-        // customerPhoneNumber=tempCustomerPhoneNum;
-        // tShirtSizeAr=temptShirtSize;
-        // quantityAr=tempQuantity;
-        // amountAr=tempAmount;
-        // orderStatusAr=tempOrderStatus;
     }
     public static void reports(){
         Scanner input = new Scanner(System.in);
@@ -1099,15 +1007,9 @@ class fashionShop{
         System.out.println("\t\t\t_____________________________________________________________________________________________________________");
         System.out.println();
 
-        // String [][] bestCustomer = new String[customerPhoneNumber.length][3];
-
         BestsInCustomer[] viewBestCustomers = new BestsInCustomer[orderDetails.length];
         boolean [] equalPass = new boolean[orderDetails.length];
         int count=0;
-
-        // for(int i=0; i<viewBestCustomers.length; i++){
-            
-        // }
         
         for(int i=0; i<orderDetails.length; i++){
             if(equalPass[i]){
@@ -1127,10 +1029,6 @@ class fashionShop{
                     equalPass[j]=true;
                 }                
             }
-            // bestCustomer[count][0]=customerPhoneNumber[i];
-            // bestCustomer[count][1]=String.valueOf(tempqty);
-            // bestCustomer[count][2]=String.valueOf(tempAmount);
-
             String customerPhoneNumber = orderDetails[i].getPhoneNumber();
 
             viewBestCustomers[count].setPhoneNumber(customerPhoneNumber);
@@ -1151,14 +1049,7 @@ class fashionShop{
                         }
                     }
 
-                }
-                 // if(viewBestCustomers[j].getQuantity()!=0 && viewBestCustomers[j+1].getQuantity()!=0){
-                 //     if(viewBestCustomers[j].getAmount()<viewBestCustomers[j+1].getAmount()){                   
-                 //         BestsInCustomer swap = viewBestCustomers[j];
-                 //         viewBestCustomers[j]=viewBestCustomers[j+1];
-                 //         viewBestCustomers[j+1]=swap;                    
-                 //     }
-                 // }               
+                }              
             }
         }
         
@@ -1173,19 +1064,10 @@ class fashionShop{
                     System.out.printf("\t\t\t\t\t\t| %15s         |%8s        | %14s|\n","","","");                                      
                 }
 
-            }
-            // if(viewBestCustomers[i].getQuantity()!=0){ 
-            //     System.out.printf("\t\t\t\t\t\t| %15s         | %8d       | %10.2f    |\n",viewBestCustomers[i].getPhoneNumber(),viewBestCustomers[i].getQuantity(),viewBestCustomers[i].getAmount());
-            //     System.out.printf("\t\t\t\t\t\t| %15s         |%8s        | %14s|\n","","","");                                      
-            // }   
-            // System.out.printf("\t\t\t\t\t\t| %15s         | %8d       | %10.2f    |\n",viewBestCustomers[count].getPhoneNumber(),viewBestCustomers[count].getQuantity(),viewBestCustomers[count].getAmount());
-            // System.out.printf("\t\t\t\t\t\t| %15s         |%8s        | %14s|\n","","","");        
+            }    
         } 
         System.out.printf("\t\t\t\t\t\t%15s+%8s+%14s\n","+-------------------------","----------------","---------------+");         
         System.out.println();
-
-        
-
 
         System.out.print("\t\t\t To access the main menu,Please enter 0 : ");
         int accessMenu = input.nextInt();
@@ -1211,16 +1093,10 @@ class fashionShop{
         System.out.println();
         System.out.println();
 
-        //String [][] bestCustomer = new String[customerPhoneNumber.length][3];
-
         BestsInCustomer[] viewCustomers = new BestsInCustomer[orderDetails.length];
         boolean [] equalPass = new boolean[orderDetails.length];
 
         int count=0;
-        // for(int i=0; i<viewCustomers.length; i++){
-        //     viewCustomers[count]=new BestsInCustomer();
-        // }
-
         for(int i=0; i<orderDetails.length; i++){
             if(equalPass[i]){
                 continue;
@@ -1241,10 +1117,6 @@ class fashionShop{
             }
 
             String customerPhoneNumber=orderDetails[i].getPhoneNumber();
-
-            // bestCustomer[i][0]=customerPhoneNumber[i];
-            // bestCustomer[i][1]=String.valueOf(tempqty);
-            // bestCustomer[i][2]=String.valueOf(tempAmount);
 
             viewCustomers[count].setPhoneNumber(customerPhoneNumber);
             viewCustomers[count].setQuantity(tempqty);
@@ -1289,9 +1161,7 @@ class fashionShop{
         System.out.println("\t\t\t__________________________________________________________________________________________________________________________________");
 
         System.out.println();
-        System.out.println();
-       
-        //int allCustomerDetails[][] = new int [customerPhoneNumber.length][8];
+        System.out.println();               
 
         AllCustomers[] allCustomerDetails = new AllCustomers[orderDetails.length];
         
@@ -1347,31 +1217,24 @@ class fashionShop{
             equalPass[i]=true;            
     
             for(int j=i+1; j<orderDetails.length; j++){
-                if(orderDetails[i].getPhoneNumber().equals(orderDetails[j].getPhoneNumber())){
-                    
-                // String customerPhoneNumber = orderDetails[i].getPhoneNumber();            
+                if(orderDetails[i].getPhoneNumber().equals(orderDetails[j].getPhoneNumber())){                                             
                 allCustomerDetails[i].setPhoneNumber(customerPhoneNumber);
 
                 if(orderDetails[i].getSize().equals("M")){
                     tempMedium2=orderDetails[i].getQuantity();
-                    allCustomerDetails[i].setMedium(tempMedium2);
-    
+                    allCustomerDetails[i].setMedium(tempMedium2);    
                 }else if (orderDetails[i].getSize().equals("XS")){
                     tempXtraSmall2=orderDetails[i].getQuantity();
                     allCustomerDetails[i].setXtraSmall(tempXtraSmall2);
-    
                 }else if(orderDetails[i].getSize().equals("XXL")){
                     tempXtraXl2=orderDetails[i].getQuantity();
                     allCustomerDetails[i].setXtraXl(tempXtraXl2);
-    
                 }else if(orderDetails[i].getSize().equals("XL")){
                     tempXtraLarge2=orderDetails[i].getQuantity();
                     allCustomerDetails[i].setXtraLarge(tempXtraLarge2);
-    
                 }else if(orderDetails[i].getSize().equals("S")){
                     tempSmall2=orderDetails[i].getQuantity();
                     allCustomerDetails[i].setSmall(tempSmall2);
-    
                 }else if(orderDetails[i].getSize().equals("L")){
                     tempLarge2=orderDetails[i].getQuantity();
                     allCustomerDetails[i].setLarge(tempLarge2);
@@ -1462,8 +1325,6 @@ class fashionShop{
         System.out.println("\t\t\t__________________________________________________________________________________________");
         System.out.println();
         System.out.println();
-
-        //String [][] qtySorted = new String[6][3];
 
         Sorting [] sortingByQuantity = new Sorting[6];
         for(int i=0; i<sortingByQuantity.length; i++){
@@ -1585,8 +1446,6 @@ class fashionShop{
         System.out.println();
         System.out.println();
 
-        //String[][] amountSorted = new String[6][3];
-
         Sorting [] sortByAmount = new Sorting[6];
         for(int i=0; i<sortByAmount.length; i++){
             sortByAmount[i]=new Sorting();
@@ -1624,23 +1483,18 @@ class fashionShop{
             if(orderDetails[i].getSize().equals("M")){
                 tempM4+=orderDetails[i].getQuantity();
                 sortByAmount[0].setQuantity(tempM4);
-
             }else if (orderDetails[i].getSize().equals("XL")){
                 tempXLarge4+=orderDetails[i].getQuantity();
                 sortByAmount[1].setQuantity(tempXLarge4);
-
             }else if(orderDetails[i].getSize().equals("XS")){
                 tempXs4+=orderDetails[i].getQuantity();
                 sortByAmount[2].setQuantity(tempXs4);
-
             }else if(orderDetails[i].getSize().equals("S")){
                 tempSmall4+=orderDetails[i].getQuantity();
                 sortByAmount[3].setQuantity(tempSmall4);
-
             }else if(orderDetails[i].getSize().equals("XXL")){
                 tempXtraXl4+=orderDetails[i].getQuantity();
                 sortByAmount[4].setQuantity(tempXtraXl4);
-
             }else if(orderDetails[i].getSize().equals("L")){
                 tempLarge4+=orderDetails[i].getQuantity();
                 sortByAmount[5].setQuantity(tempLarge4);
@@ -1745,8 +1599,6 @@ class fashionShop{
         System.out.println("\t\t\t_____________________________________________________________________________________");
         System.out.println();
         System.out.println();                                                                                                        
- 
-        //String [] temporderStatus = new String[orderStatusAr.length];
 
         for(int i=0; i<orderDetails.length; i++){
             if(orderDetails[i].getOrderStatus()==1){
@@ -1799,26 +1651,9 @@ class fashionShop{
                 FashionShopCustomerDetails swap=orderDetails[j];
                 orderDetails[j]=orderDetails[j+1];
                 orderDetails[j+1]=swap;
-
-                // String swap2=orderId[j];
-                // orderId[j]=orderId[j+1];
-                // orderId[j+1]=swap2;
-
-                // String swap3 = customerPhoneNumber[j];
-                // customerPhoneNumber[j]=customerPhoneNumber[j+1];
-                // customerPhoneNumber[j+1]=swap3;
-
-                // String swap4 = tShirtSizeAr[j];
-                // tShirtSizeAr[j]=tShirtSizeAr[j+1];
-                // tShirtSizeAr[j+1]=swap4;
-
-                // int swap5 = quantityAr[j];
-                // quantityAr[j]=quantityAr[j+1];
-                // quantityAr[j+1]=swap5;
             }
         }
 
-        //String [] temporderStatus = new String[orderStatusAr.length];
         for(int i=0; i<orderDetails.length; i++){
             if(orderDetails[i].getOrderStatus()==1){
                 orderDetails[i].setOrderStatus(delivering);
